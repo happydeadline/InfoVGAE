@@ -87,7 +87,9 @@ class InfoVGAETrainer(TrainerBase):
         features = sparse_to_tuple(sp.coo_matrix(self.features))
 
         # Create Model
-        pos_weight = float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()
+        pos_weight = self.args.pos_weight_lambda * float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()
+        print("Positive sample weight: {}".format(pos_weight))
+
         norm = adj.shape[0] * adj.shape[0] / float((adj.shape[0] * adj.shape[0] - adj.sum()) * 2)
 
         adj_label = adj_train + sp.eye(adj_train.shape[0])

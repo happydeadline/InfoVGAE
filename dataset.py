@@ -214,12 +214,34 @@ class TwitterDataset(MFDataset):
         self.het_matrix[:self.num_user, self.num_user:self.num_user + self.num_assertion] = tweeting_matrix
         self.het_matrix[self.num_user:self.num_user + self.num_assertion, :self.num_user] = tweeting_matrix.transpose()
 
+        # Get following matrix
+        if self.args.use_follow:
+            following_matrix = self.get_following_matrix()
+            self.het_matrix[:self.num_user, :self.num_user] = following_matrix
+
         print("{} Processing Done".format(self.name))
         # Return adj matrix
         return self.het_matrix
 
     def cosine_similarity(self, a, b):
         return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-07)
+
+    def get_following_matrix(self):
+        assert self.args.use_follow
+        assert self.args.follow_path is not None
+        following_matrix = np.zeros([self.num_user, self.num_user])
+        str_name_list = [str(k) for k in self.name_list]
+        with open(self.args.follow_path, "r") as fin:
+            for line in fin:
+                splts = line.strip().split("	")
+                if splts[0] in str_name_list and splts[1] in str_name_list:
+                    fr = str_name_list.index(splts[0])
+                    to = str_name_list.index(splts[1])
+                else:
+                    continue
+                following_matrix[fr][to] = 1
+                following_matrix[to][fr] = 1
+        return following_matrix
 
     def get_tweet_similarity_matrix(self, processed_data):
         X = []

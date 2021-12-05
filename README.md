@@ -20,7 +20,17 @@ To run InfoVGAE on Voteview 105th Congress dataset:
 python3 main.py --config_name InfoVGAE_bill_3D
 ```
 
-The `embeddings`, `labels`, `figures`, and `top-k tweets` (only applicable for Twitter datasets), etc, will be saved in `./output`
+To run InfoVGAE on TIMME dataset:
+```
+python3 main.py --config_name InfoVGAE_timme_3D
+```
+
+To run InfoVGAE on TIMME dataset with follow (friend) links:
+```
+python3 main.py --config_name InfoVGAE_timme_follow_3D
+```
+
+The `embeddings`, `labels`, `figures`, and `top-k tweets` (only applicable for Twitter datasets), etc, will be saved in `./output` 
 
 ## Dataset
 
@@ -67,3 +77,4 @@ Evaluation will be automaticly triggered after the training process. To evaluate
 > Result
 
 `--output_path` path to save the result
+

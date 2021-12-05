@@ -45,8 +45,34 @@ def update_arg_with_config_name(args, config_name, phrase):
         setattr(args, "learning_rate", 0.1)
         setattr(args, "lr_D", 1e-3)
         setattr(args, "gamma", 1e-3)
-        setattr(args, "seed", 100)
+        setattr(args, "seed", 0)
         setattr(args, "epochs", 118)
+
+    elif config_name == "InfoVGAE_timme_3D":
+        setattr(args, "data_path", "dataset/timme/data.csv")
+        setattr(args, "stopword_path", "dataset/timme/stopwords_en.txt")
+        setattr(args, "model", "VGAE")
+        setattr(args, "hidden2_dim", 3)
+        setattr(args, "learning_rate", 0.1)
+        setattr(args, "pos_weight_lambda", 19.0)
+        setattr(args, "lr_D", 1e-3)
+        setattr(args, "gamma", 1e-3)
+        setattr(args, "seed", 0)
+        setattr(args, "epochs", 97)
+
+    elif config_name == "InfoVGAE_timme_follow_3D":
+        setattr(args, "data_path", "dataset/timme/data.csv")
+        setattr(args, "stopword_path", "dataset/timme/stopwords_en.txt")
+        setattr(args, "model", "VGAE")
+        setattr(args, "hidden2_dim", 3)
+        setattr(args, "learning_rate", 0.1)
+        setattr(args, "pos_weight_lambda", 14.0)
+        setattr(args, "use_follow", True)
+        setattr(args, "follow_path", "dataset/timme/friend_list.csv")
+        setattr(args, "lr_D", 1e-3)
+        setattr(args, "gamma", 1e-3)
+        setattr(args, "seed", 0)
+        setattr(args, "epochs", 102)
 
     elif config_name == "InfoVGAE_bill_3D":
         setattr(args, "data_path", "")
@@ -56,7 +82,7 @@ def update_arg_with_config_name(args, config_name, phrase):
         setattr(args, "learning_rate", 0.01)
         setattr(args, "lr_D", 1e-3)
         setattr(args, "gamma", 1e-3)
-        setattr(args, "seed", 10)
+        setattr(args, "seed", 0)
         setattr(args, "epochs", 132)
 
     else:

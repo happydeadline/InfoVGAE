@@ -27,7 +27,8 @@ parser.add_argument('--add_self_loop', type=bool, default=True, help='add self l
 parser.add_argument('--directed', type=bool, default=False, help='use directed adj matrix')
 parser.add_argument('--data_path', type=str, default=None)
 parser.add_argument('--data_json_path', type=str, default=None)
-parser.add_argument('--friend_path', type=str, default=None)
+parser.add_argument('--follow_path', type=str, default=None)
+parser.add_argument('--use_follow', type=bool, default=False)
 parser.add_argument('--stopword_path', type=str, default=None)
 parser.add_argument('--keyword_path', type=str, default="N")
 parser.add_argument('--kthreshold', type=int, default=5, help='minimum keyword count to keep the sample')
@@ -39,6 +40,7 @@ parser.add_argument('--hidden2_dim', type=int, default=2, help='graph conv2 dim'
 parser.add_argument('--use_feature', type=bool, default=True, help='Use feature')
 parser.add_argument('--num_user', type=int, default=None, help='Number of users, usually no need to specify.')
 parser.add_argument('--num_assertion', type=int, default=None, help='Number of assertions, usually no need to specify.')
+parser.add_argument('--pos_weight_lambda', type=float, default=1.0, help='Lambda for positive sample weight')
 
 # For Discriminator
 parser.add_argument('--gamma', type=float, default=1e-3, help='weight for tc loss')
@@ -59,14 +61,14 @@ else:
 setattr(args, "device", device)
 print("Device: {}".format(device))
 
-# Setting the random seeds
-np.random.seed(args.seed)
-torch.manual_seed(args.seed)
-
 # Update the arg if config_name is set
 if args.config_name is not None:
     update_arg_with_config_name(args, args.config_name, phrase="train")
 os.makedirs(args.output_path, exist_ok=True)
+
+# Setting the random seeds
+np.random.seed(args.seed)
+torch.manual_seed(args.seed)
 
 # Prepare dataset
 if args.config_name.find("_bill_") != -1:

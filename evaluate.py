@@ -7,7 +7,7 @@ from sklearn import metrics
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans, MeanShift, DBSCAN
-from sklearn.metrics import recall_score, f1_score, precision_score
+from sklearn.metrics import recall_score, f1_score, precision_score, accuracy_score
 
 
 class Evaluator:
